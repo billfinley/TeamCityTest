@@ -1,0 +1,36 @@
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+"C:\Users\finleyw\Downloads\TeamCity-2018.2.4.exe"
+"C:\Users\finleyw\Downloads\SSMS-Setup-ENU.exe"
+"C:\Users\finleyw\Downloads\Octopus.2019.4.7-x64.msi"
+"C:\Users\finleyw\Downloads\SQLServer2017-SSEI-Expr.exe"
+Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
+# Register a file share on my local machine
+Register-PSRepository -Name dvOpsRepo -SourceLocation '\\localhost\dvOps\PSRepo' -ScriptSourceLocation '\\localhost\dvOps\' -InstallationPolicy Trusted
+#TC setup
+http://localhost:999
+"C:\TeamCity\buildAgent\conf\buildAgent.properties"
+RunSvcAs System
+Data Directory: C:\ProgramData\JetBrains\TeamCity
+Downloading JDBC drivers
+tcadmin+=
+
+
+#Octopus setup
+oadmin-Omg2019!
+http://localhost:998
+"C:\Program Files\Octopus Deploy\Octopus\Octopus.Server.exe" create-instance --instance "OctopusServer" --config "C:\Octopus\OctopusServer.config"
+"C:\Program Files\Octopus Deploy\Octopus\Octopus.Server.exe" database --instance "OctopusServer" --connectionString "Data Source=(local)\SQLEXPRESS;Initial Catalog=dvOps_Octopus;Integrated Security=True" --create --grant "NT AUTHORITY\SYSTEM"
+"C:\Program Files\Octopus Deploy\Octopus\Octopus.Server.exe" configure --instance "OctopusServer" --upgradeCheck "False" --upgradeCheckWithStatistics "False" --webForceSSL "False" --webListenPrefixes "http://localhost:998/" --commsListenPort "10943" --serverNodeName "STLITLAP31" --usernamePasswordIsEnabled "True"
+"C:\Program Files\Octopus Deploy\Octopus\Octopus.Server.exe" service --instance "OctopusServer" --stop
+"C:\Program Files\Octopus Deploy\Octopus\Octopus.Server.exe" admin --instance "OctopusServer" --username "oadmin" --email "bill.finley@sbcglobal.net" --password "Omg2019!"
+"C:\Program Files\Octopus Deploy\Octopus\Octopus.Server.exe" license --instance "OctopusServer" --licenseBase64 "PExpY2Vuc2UgU2lnbmF0dXJlPSJJWnBibGxZQVZsQmVsSlEvNjNnQndnYU95ZEJsdnZ5bnlXTTZ0QnJkSDdmSEV6WGJkUVNtSk0yeDZxa2V6NEUwVGo3NEU1d1BKaCtrVCtwN1M0T0haUT09Ij4KICA8TGljZW5zZWRUbz5PbmVMb3ZlUHJvZHVjdGlvbnM8L0xpY2Vuc2VkVG8+CiAgPExpY2Vuc2VLZXk+NDQ5MTEtNjk3MjUtMTQ0MjYtMjIzODE8L0xpY2Vuc2VLZXk+CiAgPFZlcnNpb24+Mi4wPCEtLSBMaWNlbnNlIFNjaGVtYSBWZXJzaW9uIC0tPjwvVmVyc2lvbj4KICA8VmFsaWRGcm9tPjIwMTktMDUtMDI8L1ZhbGlkRnJvbT4KICA8VmFsaWRUbz4yMDE5LTA2LTAxPC9WYWxpZFRvPgogIDxQcm9qZWN0TGltaXQ+VW5saW1pdGVkPC9Qcm9qZWN0TGltaXQ+CiAgPE1hY2hpbmVMaW1pdD5VbmxpbWl0ZWQ8L01hY2hpbmVMaW1pdD4KICA8VXNlckxpbWl0PlVubGltaXRlZDwvVXNlckxpbWl0Pgo8L0xpY2Vuc2U+"
+"C:\Program Files\Octopus Deploy\Octopus\Octopus.Server.exe" service --instance "OctopusServer" --install --reconfigure --start --dependOn "MSSQL$SQLEXPRESS"
+
+echo "# TeamCityTest" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/billfinley/TeamCityTest.git
+git push -u origin master
+
+
