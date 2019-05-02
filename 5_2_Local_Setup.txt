@@ -34,3 +34,7 @@ git remote add origin https://github.com/billfinley/TeamCityTest.git
 git push -u origin master
 
 
+Install-Module Plaster -Scope CurrentUser
+Get-PlasterTemplate -Path .\Stucco_Modules\Stucco\Stucco\plasterManifest.xml
+Invoke-Plaster -TemplatePath $template.TemplatePath -destinationpath .\
+
